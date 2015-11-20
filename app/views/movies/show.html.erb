@@ -29,6 +29,7 @@
   </p>
   
   <footer>
+    <%= link_to pluralize(@movie.reviews.count, 'review'), movie_reviews_path(@movie)%>
     <nav>
       <%= link_to 'Edit', edit_movie_path(@movie), class: 'button' %>
       <%= link_to 'Delete', @movie, 
