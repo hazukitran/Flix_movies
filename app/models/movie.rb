@@ -27,8 +27,22 @@ class Movie < ActiveRecord::Base
   def self.recently_added
     order('created_at desc').limit(3)
   end
+
+  def cult?
+    reviews.size > 50 && average_stars >= 4
+  end
   
   def flop?
     total_gross.blank? || total_gross < 50000000
+    unless cult?
+    end
+  end
+
+  def average_stars
+    reviews.average(:stars)
+  end
+
+  def recent_reviews
+    reviews.order("created_at desc").limit(2)
   end
 end
