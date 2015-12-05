@@ -3,13 +3,19 @@ class SessionsController < ApplicationController
   end
 
   def create
-    if user = User.authencate(params[:email], params[:password])
+    if user = User.authenticate(params[:email] || params[:username], params[:password])
       session[:user_id] = user.id
       flash[:notice] = "Welcome back, #{user.name}!"
-      redirect_to user
+      redirect_to(session[:intended_url] || user)
+      session[:intended_url] = nil
     else
       flash.now[:alert] = "Invalid email/password combination!"
       render :new
     end
   end
+
+  def destroy
+    session[:user_id] = nil
+    redirect_to root_path, notice: "You're now signed out!"
+  end 
 end
