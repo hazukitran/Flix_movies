@@ -12,7 +12,7 @@ class Movie < ActiveRecord::Base
 
   has_many :reviews, dependent: :destroy
   has_many :favourites, dependent: :destroy
-  has_many :critics, through: :favourites, source: :user
+  has_many :fans, through: :favourites, source: :user
   has_many :characterizations, dependent: :destroy
   has_many :genres, through: :characterizations
   

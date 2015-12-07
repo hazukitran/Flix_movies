@@ -8,7 +8,7 @@ class MoviesController < ApplicationController
 
   def show
     @movie = Movie.find(params[:id])
-    @critics = @movie.critics
+    @fans = @movie.fans
     @genres = @movie.genres
 
     if current_user
