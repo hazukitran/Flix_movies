@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
   has_many :reviews, dependent: :destroy
+  has_many :favourites, dependent: :destroy
+  has_many :favourite_movies, through: :favourites, source: :movie
 
   has_secure_password
 

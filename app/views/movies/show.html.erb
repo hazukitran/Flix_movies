@@ -13,6 +13,17 @@
     <%= @movie.rating %> &bull; <%= @movie.duration %> 
   </h3>
   
+  <% if current_user %>
+    <p>
+      <%= pluralize(@movie.favourites.count, "fave") %>
+    </p>
+    <% if @current_favourite %>
+      <%= button_to "Unfave", movie_favourite_path(@movie, @current_favourite), method: :delete, class: "button unfave" %>
+    <% else %>
+      <%= button_to "Fave", movie_favourites_path(@movie), class: "button fave" %>
+    <% end %>
+  <% end %>
+  
   <h3>Cast</h3>
   <p>
     <%= @movie.cast %>
@@ -52,6 +63,21 @@
       Read all <%= link_to pluralize(@movie.reviews.size, "review"), movie_reviews_path(@movie) %>
     </p>
   <% end %>
+
+  <p>
+    <%= pluralize(@critics.size, 'critic') %>
+    <% if @critics.any? %>
+      <h3>Critics</h3>
+      <ul>
+        <% @critics.each do |user| %>
+          <li>
+          <%= profile_image_for(user, size: 35) %>
+          <%= link_to user.name, user %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </p>
   
   <footer>
     <nav>
