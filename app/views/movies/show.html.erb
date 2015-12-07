@@ -23,6 +23,13 @@
       <%= button_to "Fave", movie_favourites_path(@movie), class: "button fave" %>
     <% end %>
   <% end %>
+
+  <h3>Genres</h3>
+  <ul>
+    <% @genres.each do |genre| %>
+      <li><%= genre.name %></li>
+    <% end %>
+  </ul>
   
   <h3>Cast</h3>
   <p>
