@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+
+  before_save :format_username
+
   has_many :reviews, dependent: :destroy
   has_many :favourites, dependent: :destroy
   has_many :favourite_movies, through: :favourites, source: :movie
@@ -25,4 +28,9 @@ class User < ActiveRecord::Base
     user = User.find_by(email: email_or_username) || User.find_by(username: email_or_username)
     user && user.authenticate(password)
   end
+  
+  def format_username
+    self.username = username.downcase
+  end
 end
+

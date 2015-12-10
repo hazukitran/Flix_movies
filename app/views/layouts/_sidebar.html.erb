@@ -1,14 +1,14 @@
 <aside id="sidebar">
   <nav>
     <ul>
-      <li class="all-movies">
-        <%= nav_link_to 'Released', movies_path %>
-      </li>
       <% if current_user_admin? %>
         <li class="create-movie">
         <%= nav_link_to 'Add New Movie', new_movie_path %>
         </li>
       <% end %>
+      <li class="all-movies">
+        <%= nav_link_to 'Released', movies_path %>
+      </li>
       <li class="all-movies">
         <%= nav_link_to "Hits", filtered_movies_path(:hits) %>
       </li>
