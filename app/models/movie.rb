@@ -1,7 +1,10 @@
 class Movie < ActiveRecord::Base
+  before_validation :generate_slug
   
   RATINGS = %w(G PG PG-13 R NC-17)
-  validates :title, :released_on, :duration, presence: true
+  validates :title, presence: true, uniqueness: true
+  validates :slug, uniqueness: true
+  validates :released_on, :duration, presence: true
   validates :description, length: { minimum: 25 }
   validates :total_gross, numericality: { greater_than_or_equal_to: 0 }
   validates :image_file_name, allow_blank: true, format: {
@@ -44,4 +47,13 @@ class Movie < ActiveRecord::Base
   def recent_reviews
     reviews.order("created_at desc").limit(2)
   end
+
+  def to_param
+    slug
+  end
+
+  def generate_slug
+    self.slug ||= title.parameterize if title
+  end
+
 end
